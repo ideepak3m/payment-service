@@ -9,16 +9,32 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
     // CORS headers
+
+    // Dynamic CORS: allow localhost and production
+    const allowedOrigins = [
+        'http://localhost:8080',
+        'https://your-production-frontend.com' // <-- replace with your real production frontend URL
+    ];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else {
+        res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0]);
+    }
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Or specific domains
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
+
     if (req.method === 'OPTIONS') {
+        // Preflight request: respond with only the CORS headers
+        console.log('Preflight OPTIONS request received');
         return res.status(200).end();
     }
 
     if (req.method !== 'POST') {
+        // Always set CORS headers for error responses too
+        console.log('POST options for error received:');
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
