@@ -5,8 +5,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(
     process.env.ADMIN_SUPABASE_URL,
     process.env.ADMIN_SUPABASE_KEY, {
-        db: { schema: 'admin' }
-    }
+    db: { schema: 'admin' }
+}
 );
 
 export default async function handler(req, res) {
@@ -63,7 +63,7 @@ export default async function handler(req, res) {
         // 1. Create record in admin database
         const { data: orderRecord, error: dbError } = await supabase
             .from('orders')
-            .schema('admin')
+            // .schema('admin')
             .insert({
                 order_number: orderNumber,
                 brand: brand,
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
         // 3. Update admin record with Stripe Payment Intent ID
         await supabase
             .from('orders')
-            .schema('admin')
+            // .schema('admin')
             .update({
                 stripe_payment_intent_id: paymentIntent.id,
                 updated_at: new Date().toISOString(),

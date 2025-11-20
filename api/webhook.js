@@ -45,7 +45,7 @@ export default async function handler(req, res) {
             // Update admin database
             await supabase
                 .from('orders')
-                .schema('admin')
+                // .schema('admin')
                 .update({
                     status: 'paid',
                     stripe_charge_id: paymentIntent.latest_charge,
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
 
             await supabase
                 .from('orders')
-                .schema('admin')
+                // .schema('admin')
                 .update({
                     status: 'failed',
                     updated_at: new Date().toISOString(),
