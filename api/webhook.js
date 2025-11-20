@@ -5,7 +5,9 @@ import { buffer } from 'micro';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(
     process.env.ADMIN_SUPABASE_URL,
-    process.env.ADMIN_SUPABASE_ANON_KEY
+    process.env.ADMIN_SUPABASE_ANON_KEY, {
+    db: { schema: 'admin' }
+}
 );
 
 export const config = {

@@ -4,7 +4,9 @@ import { createClient } from '@supabase/supabase-js';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(
     process.env.ADMIN_SUPABASE_URL,
-    process.env.ADMIN_SUPABASE_KEY
+    process.env.ADMIN_SUPABASE_KEY, {
+        db: { schema: 'admin' }
+    }
 );
 
 export default async function handler(req, res) {

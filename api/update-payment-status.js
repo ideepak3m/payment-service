@@ -2,7 +2,9 @@ import { createClient } from '@supabase/supabase-js';
 
 const adminSupabase = createClient(
     process.env.ADMIN_SUPABASE_URL,
-    process.env.ADMIN_SUPABASE_KEY
+    process.env.ADMIN_SUPABASE_KEY, {
+    db: { schema: 'admin' }
+}
 );
 
 export default async function handler(req, res) {
