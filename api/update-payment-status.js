@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
         // 1. Update admin database
         const { error: adminError } = await adminSupabase
-            .from('orders')
+            .from('admin.orders')
             .update({
                 status: status,
                 payment_method: 'card',
