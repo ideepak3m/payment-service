@@ -60,7 +60,8 @@ export default async function handler(req, res) {
 
         // 1. Create record in admin database
         const { data: orderRecord, error: dbError } = await supabase
-            .from('admin.orders')
+            .from('orders')
+            .schema('admin')
             .insert({
                 order_number: orderNumber,
                 brand: brand,
@@ -102,7 +103,8 @@ export default async function handler(req, res) {
 
         // 3. Update admin record with Stripe Payment Intent ID
         await supabase
-            .from('admin.orders')
+            .from('orders')
+            .schema('admin')
             .update({
                 stripe_payment_intent_id: paymentIntent.id,
                 updated_at: new Date().toISOString(),
