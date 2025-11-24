@@ -15,6 +15,7 @@ export default async function handler(req, res) {
     // Dynamic CORS: allow localhost and production
     const allowedOrigins = [
         'http://localhost:8080',
+        'http://localhost:3000',
         'https://your-production-frontend.com' // <-- replace with your real production frontend URL
     ];
     const origin = req.headers.origin;
